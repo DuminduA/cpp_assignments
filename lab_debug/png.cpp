@@ -10,7 +10,7 @@
 
 #include <cstdint>
 
-#include <png.h>
+#include "png.h"
 
 using std::uint8_t;
 

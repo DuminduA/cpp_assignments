@@ -1,0 +1,14 @@
+{
+    "makefile.makefilePath": "./Makefile",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/Users/duminduakalanka/VisualStudioApps/CPP_Assignments/lab_debug",
+            "binaryPath": "/Users/duminduakalanka/VisualStudioApps/CPP_Assignments/lab_debug/sketchify",
+            "binaryArgs": []
+        }
+    ],
+    "files.associations": {
+        "ios": "cpp",
+        "ostream": "cpp"
+    }
+}

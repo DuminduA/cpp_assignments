@@ -7,8 +7,8 @@ OBJS_PROVIDED = main.o rgbapixel.o png.o
 
 CXX = g++
 LD = g++
-CXXFLAGS = -g -O0 -w -MMD -MP -c
-LDFLAGS = -lpng
+CXXFLAGS = -g -O0 -w -MMD -MP -c -I/opt/homebrew/Cellar/libpng/1.6.43/include
+LDFLAGS = -L/opt/homebrew/Cellar/libpng/1.6.43/lib -lpng
 
 all: $(EXE)
 
