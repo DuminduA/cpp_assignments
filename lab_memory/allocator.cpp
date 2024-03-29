@@ -18,6 +18,27 @@ Allocator::Allocator(const string & studentFile, const string & roomFile)
 	loadRooms(roomFile);
 }
 
+Allocator::~Allocator() {
+    delete[] alpha;
+	delete[] rooms;
+	alpha = NULL;
+	rooms = NULL;
+}
+
+Allocator::Allocator(const Allocator & other) {
+	roomCount = other.roomCount;
+	studentCount = other.studentCount;
+	totalCapacity = other.totalCapacity;
+
+	alpha = new Letter[26];
+	for (int i = 0; i < 26; i++)
+		alpha[i].letter = other.alpha[i].letter;
+
+	rooms = new Room[roomCount];
+	for (int i = 0; i < 26; i++)
+		rooms[i] = other.rooms[i];
+}
+
 /**
  * Allocates the array of letters
  */
@@ -62,9 +83,9 @@ void Allocator::loadRooms(const string & file)
 	int i = 0;
 	while (fileio::areMoreRooms())
 	{
-		i++;
 		rooms[i] = fileio::nextRoom();
 		totalCapacity += rooms[i].capacity;
+		i++;
 	}
 }
 

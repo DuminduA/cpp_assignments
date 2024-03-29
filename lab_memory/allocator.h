@@ -42,6 +42,16 @@ class Allocator
          */
         void printRooms();
 
+        /**
+         * Destructor
+        */
+        ~Allocator();
+
+       /**
+        * Copy constructor
+       */
+        Allocator(const Allocator & other);
+
 	private:
 
         /**
