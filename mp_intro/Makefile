@@ -3,8 +3,10 @@ OBJS = main.o intro.o rgbapixel.o png.o
 
 COMPILER = g++
 COMPILER_OPTS = -c -g -O0 -Wall -Werror -I/opt/homebrew/Cellar/libpng/1.6.43/include
+# COMPILER_OPTS = -c -g -O0 -Wall -Werror
 LINKER = g++
 LINKER_OPTS = -L/opt/homebrew/Cellar/libpng/1.6.43/lib -lpng
+# LINKER_OPTS = -lpng
 
 all : $(EXE)
 
