@@ -81,16 +81,17 @@ void Layers()
 	outputCanvas.draw(&out);
 	out.writeToFile(OUTPUT_FILE);
 
+
 	// Clean up
 	for (size_t i = 0; i < num_drawables; i++)
 	{
-		delete drawables[i];
+		// delete drawables[i];
 		drawables[i] = NULL;
 	}
 	
 	for(size_t i=0; i < num_items; i++)
 	{
-		delete canvasItems[i];
+		// delete canvasItems[i];
 		canvasItems[i] = NULL;
 	}
 	
@@ -105,7 +106,7 @@ void Collage(){
 	char INPUT_FILE[] = "Images/1.png";
 	// Line thickness
 	const int th = 8;
-	
+
 	// Let's define canvas items and the output canvas
 	const size_t num_items = 8;
 	CanvasItem** canvasItems = new CanvasItem*[num_items];
@@ -166,7 +167,7 @@ void Collage(){
 	// Clean up
 	for(size_t i=0; i < num_items; i++)
 	{
-		delete canvasItems[i];
+		// delete canvasItems[i];
 		canvasItems[i] = NULL;
 	}
 	

@@ -10,6 +10,10 @@
 #include "png.h"
 #include "vector2.h"
 #include "canvasitem.h"
+#include <vector>
+
+using namespace std;
+
 
 class Canvas
 {
@@ -22,7 +26,7 @@ class Canvas
 		void draw(PNG* canvas) const;
 		
 	private:
-		CanvasItem* items;
+		vector<CanvasItem*> items;
 		size_t itemcount = 0;
 };
 
