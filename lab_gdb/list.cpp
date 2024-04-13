@@ -13,6 +13,8 @@
  * @date (modified) Spring 2014
  */
 
+#include <iostream>
+
 /**
  * Destroys the current List. This function should ensure that
  * memory does not leak on destruction of a list.
@@ -31,6 +33,17 @@ template <class T>
 void List<T>::clear()
 {
     // @todo Graded in lab_gdb
+    ListNode * current = head;
+    ListNode * next;
+
+    while(current != nullptr) {
+        next = current-> next;
+        delete current;
+        current = next;
+        length--;
+    }
+
+    head = nullptr;
 }
 
 /**
@@ -43,6 +56,11 @@ template <class T>
 void List<T>::insertFront(T const & ndata)
 {
     // @todo Graded in lab_gdb
+    ListNode * newNode = new ListNode(ndata);
+
+    newNode -> next = head;
+    head = newNode;
+    length++;
 }
 
 /**
@@ -60,12 +78,13 @@ void List<T>::insertBack( const T & ndata )
     if (temp == NULL)
     {
         head = new ListNode(ndata);
+        length++;
     }
     else
     {
-        while (temp->next != NULL)
+        while (temp->next != nullptr)
             temp = temp->next;
-        temp = new ListNode(ndata);
+        temp-> next = new ListNode(ndata);
         length++;
     }
 }
@@ -94,7 +113,7 @@ typename List<T>::ListNode* List<T>::reverse( ListNode * curr, ListNode * prev, 
 {
     // @todo Graded in lab_gdb
     ListNode * temp;
-    if (len <= 0)
+    if (len <= 1)
     {
         curr->next = prev;
         return curr;
@@ -140,6 +159,7 @@ void List<T>::shuffle()
         one->next = two;
         two = two->next;
         one->next->next = temp;
+        one = temp;
     }
 }
 

@@ -8,8 +8,8 @@ OBJS_PROVIDED = png.o rgbapixel.o blockpng.o
 CXX = g++
 LD = g++
 WARNINGS = -pedantic -Wall -Werror -Wfatal-errors -Wextra -Wno-unused-parameter -Wno-unused-variable
-CXXFLAGS = -g -O0 $(WARNINGS) -MMD -MP -c
-LDFLAGS = -lpng
+CXXFLAGS = -g -O0 $(WARNINGS) -MMD -MP -c -I/opt/homebrew/Cellar/libpng/1.6.43/include
+LDFLAGS = -L/opt/homebrew/Cellar/libpng/1.6.43/lib -lpng
 ASANFLAGS = -fsanitize=address -fno-omit-frame-pointer
 
 all: $(EXE)
