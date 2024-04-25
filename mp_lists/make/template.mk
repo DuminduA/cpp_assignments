@@ -21,10 +21,10 @@ ASANFLAGS = -fsanitize=address -fno-omit-frame-pointer
 WARNINGS = -pedantic -Wall -Werror -Wfatal-errors -Wextra -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function
 
 # Flags for compile:
-CXXFLAGS += $(cpp) -O0 $(WARNINGS) $(DEPFILE_FLAGS) -g -c
+CXXFLAGS += $(cpp) -O0 $(WARNINGS) $(DEPFILE_FLAGS) -g -c -I/opt/homebrew/Cellar/libpng/1.6.43/include -std=c++11
 
 # Flags for linking:
-LDFLAGS += $(cpp) -lpng
+LDFLAGS += $(cpp) -L/opt/homebrew/Cellar/libpng/1.6.43/lib -lpng
 
 # Rule for `all` (first/default rule):
 all: $(EXE) $(EXE)-asan
