@@ -15,6 +15,26 @@ using std::vector;
 using std::ifstream;
 using std::istringstream;
 
+// std::string LogfileParser::getProductId(std::string url) const {
+//     // Create a stringstream from the string
+//     std::stringstream ss(url);
+
+//     // Create a vector to store the split parts
+//     std::vector<std::string> parts;
+
+//     std::string part;
+//     // Use getline with '/' as delimiter to split the string
+//     while (std::getline(ss, part, '/')) {
+//         if (!part.empty()) {
+//             parts.push_back(part);
+//         }
+//     }
+
+//     string product = parts.back();
+//     return product;
+// }
+
+
 /**
  * Constructs a LogLine from a string (actual physical line in the
  * logfile).
@@ -67,6 +87,30 @@ LogfileParser::LogfileParser( const string & fname ) : whenVisitedTable( 256 ) {
          * this problem. This should also build the uniqueURLs member
          * vector as well.
          */
+        
+        auto it =  std::find(uniqueURLs.begin(), uniqueURLs.end(), ll.url);
+        if (it == uniqueURLs.end()) {
+            uniqueURLs.push_back(ll.url);
+        }
+
+        // Create a stringstream from the string
+        std::stringstream ss(ll.url);
+
+        // Create a vector to store the split parts
+        std::vector<std::string> parts;
+
+        std::string part;
+        // Use getline with '/' as delimiter to split the string
+        while (std::getline(ss, part, '/')) {
+            if (!part.empty()) {
+                parts.push_back(part);
+            }
+        }
+
+        string product = parts.back();
+
+        string key = ll.customer + product;
+        whenVisitedTable[key] = ll.date;
     }
     infile.close();
 }
@@ -82,11 +126,29 @@ bool LogfileParser::hasVisited( const string & customer, const string & url ) co
     /**
      * @todo Implement this function.
      */
+    // Create a stringstream from the string
+    std::stringstream ss(url);
 
-    (void) customer; // prevent warnings... When you implement this function, remove this line.
-    (void) url;      // prevent warnings... When you implement this function, remove this line.
+    // Create a vector to store the split parts
+    std::vector<std::string> parts;
 
-    return true; // replaceme
+    std::string part;
+    // Use getline with '/' as delimiter to split the string
+    while (std::getline(ss, part, '/')) {
+        if (!part.empty()) {
+            parts.push_back(part);
+        }
+    }
+
+    string prod = parts.back();
+
+    // Construct the key using customer name and product ID
+    string key = customer + prod;
+
+    // Check if the key exists in the hash table
+    time_t it = whenVisitedTable.find(key);
+    return it != time_t();
+
 }
 
 /**
@@ -103,11 +165,28 @@ time_t LogfileParser::dateVisited( const string & customer, const string & url )
     /**
      * @todo Implement this function.
      */
+    // Create a stringstream from the string
+    std::stringstream ss(url);
 
-    (void) customer; // prevent warnings... When you implement this function, remove this line.
-    (void) url;      // prevent warnings... When you implement this function, remove this line.
+    // Create a vector to store the split parts
+    std::vector<std::string> parts;
 
-    return time_t(); // replaceme
+    std::string part;
+    // Use getline with '/' as delimiter to split the string
+    while (std::getline(ss, part, '/')) {
+        if (!part.empty()) {
+            parts.push_back(part);
+        }
+    }
+
+    string prod = parts.back();
+
+    // Construct the key using customer name and product ID
+    string key = customer + prod;
+
+    // Check if the key exists in the hash table
+    auto it = whenVisitedTable.find(key);
+    return it;
 }
 
 /**
@@ -119,3 +198,5 @@ time_t LogfileParser::dateVisited( const string & customer, const string & url )
 vector<string> LogfileParser::uniquePages() const {
     return uniqueURLs;
 }
+
+

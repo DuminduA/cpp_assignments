@@ -66,6 +66,8 @@ class LogfileParser {
          */
         std::vector< std::string > uniquePages() const;
 
+        // std::string getProductId(std::string url) const;
+
     private:
         /**
          * LogLine structure: Represents the information contained in a

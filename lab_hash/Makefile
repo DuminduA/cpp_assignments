@@ -1,4 +1,4 @@
-CXX = g++
+CXX = g++ -std=c++11
 WARNINGS = -pedantic -Wall -Werror -Wfatal-errors -Wextra -Wno-unused-parameter -Wno-unused-variable
 CXXFLAGS = -g -O0 $(WARNINGS) -MMD -MP -c
 LD = g++

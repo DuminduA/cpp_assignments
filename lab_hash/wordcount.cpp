@@ -25,10 +25,7 @@ template <template <class K, class V> class Dict>
 void countWords( const string & file, int frequency ) {
     WordFreq<Dict> wf( file );
     vector< pair<string, int> > ret = wf.getWords( frequency );
-    sort(ret.begin(), ret.end(),
-            [](const pair<string, int> & a, const pair<string, int> & b) -> bool {
-                return (a.second == b.second) ? (a.first < b.first) : (a.second > b.second);
-            });
+    sort(ret.begin(), ret.end(), [](const pair<string, int> & a, const pair<string, int> & b) -> bool { return (a.second == b.second) ? (a.first < b.first) : (a.second > b.second);});
     for( unsigned int i = 0; i < ret.size(); i++ )
         cout << ret[i].second << "\t" << ret[i].first << endl;
 }
