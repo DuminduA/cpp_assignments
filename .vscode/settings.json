@@ -33,6 +33,7 @@
         "typeinfo": "cpp",
         "complex": "cpp",
         "ostream": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "sstream": "cpp"
     }
 }

@@ -4,10 +4,9 @@
  */
 
 template <class T>
-List<T>::List() { 
-  // @TODO: graded in MP3.1
-    ListNode* head_ = NULL;
-    ListNode* tail_ = NULL;
+List<T>::List() : head_(nullptr), tail_(nullptr), length_(0) { 
+  /// @TODO: graded in MP3.1
+  //no need of a body implementation here
 }
 
 /**
@@ -16,8 +15,8 @@ List<T>::List() {
  */
 template <typename T>
 typename List<T>::ListIterator List<T>::begin() const {
-  // @TODO: graded in MP3.1
-  return List<T>::ListIterator(NULL);
+  /// @TODO: graded in MP3.1
+  return List<T>::ListIterator(head_);
 }
 
 /**
@@ -26,7 +25,7 @@ typename List<T>::ListIterator List<T>::begin() const {
 template <typename T>
 typename List<T>::ListIterator List<T>::end() const {
   // @TODO: graded in MP3.1
-  return List<T>::ListIterator(NULL);
+  return List<T>::ListIterator(nullptr);
 }
 
 
@@ -37,7 +36,17 @@ typename List<T>::ListIterator List<T>::end() const {
 template <typename T>
 void List<T>::_destroy() {
   /// @todo Graded in MP3.1
-  
+  ListNode* current = head_;
+  while(current != nullptr) {
+    ListNode* next = current -> next;
+    delete current;
+    current = next;
+  }
+  head_ = nullptr;
+  tail_ = nullptr;
+
+  length_ = 0;
+
 }
 
 /**
@@ -51,16 +60,17 @@ void List<T>::insertFront(T const & ndata) {
   /// @todo Graded in MP3.1
   ListNode * newNode = new ListNode(ndata);
   newNode -> next = head_;
-  newNode -> prev = NULL;
+  newNode -> prev = nullptr;
   
-  if (head_ != NULL) {
+  if (head_ != nullptr) {
     head_ -> prev = newNode;
   }
-  if (tail_ == NULL) {
+
+  head_ = newNode;
+
+  if (tail_ == nullptr) {
     tail_ = newNode;
   }
-  
-
   length_++;
 
 }
@@ -74,6 +84,21 @@ void List<T>::insertFront(T const & ndata) {
 template <typename T>
 void List<T>::insertBack(const T & ndata) {
   /// @todo Graded in MP3.1
+
+  ListNode* newNode = new ListNode(ndata); // Create a new node with the given data
+  newNode->next = nullptr; // Since it's going to be the last node, its next is null
+
+  if (tail_ != nullptr) { // If the list is not empty
+      tail_->next = newNode; // Set current tail's next to the new node
+      newNode->prev = tail_; // Set new node's prev to the current tail
+      tail_ = newNode; // Update the tail to be the new node
+  } else { // If the list is empty
+      head_ = newNode; // The new node is both the head
+      tail_ = newNode; // and the tail of the list
+      newNode->prev = nullptr; // Its prev is null since it's the only node
+  }
+
+  length_++; // Increment the length of the list
 }
 
 /**
@@ -95,18 +120,49 @@ void List<T>::insertBack(const T & ndata) {
 template <typename T>
 typename List<T>::ListNode * List<T>::split(ListNode * start, int splitPoint) {
   /// @todo Graded in MP3.1
-  ListNode * curr = start;
+  // if (start == nullptr || splitPoint <=0) {
+  //   return nullptr;
+  // }
 
-  for (int i = 0; i < splitPoint || curr != NULL; i++) {
-    curr = curr->next;
-  }
+  // ListNode * curr = start;
 
-  if (curr != NULL) {
-      curr->prev->next = NULL;
-      curr->prev = NULL;
-  }
+  // for (int i = 1; i < splitPoint && curr -> next != nullptr; i++) {
+  //   curr = curr->next;
+  // }
 
-  return NULL;
+  // if (curr == nullptr || curr->next == nullptr) {
+  //     return nullptr;
+  // }
+
+  // ListNode * newHead = curr -> next;
+  // newHead -> prev = nullptr;
+  // curr -> next = nullptr;
+
+  // return newHead;
+
+      // Handle edge cases
+    if (start == nullptr || splitPoint <= 0) {
+        return nullptr; // No split to perform
+    }
+
+    ListNode* curr = start;
+    for (int i = 1; i < splitPoint && curr->next != nullptr; i++) {
+        curr = curr->next; // Move to the next node until reaching splitPoint or end of list
+    }
+
+    // If curr is the last node or beyond, no split occurs
+    if (curr == nullptr || curr->next == nullptr) {
+        return nullptr;
+    }
+
+    // Split the list
+    ListNode* newHead = curr->next; // The head of the second part of the list
+    newHead->prev = nullptr; // This is now the first node, so no previous node
+    curr->next = nullptr; // Disconnect the first part of the list from the second
+
+    return newHead; // Return the head of the second, newly created list
+
+    
 }
 
 /**
